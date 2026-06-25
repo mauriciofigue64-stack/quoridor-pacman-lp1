@@ -218,6 +218,10 @@ void reiniciarPartida(int mapaSeleccionado, int *filas, int *columnas,
 void dibujarTablero(int filas, int columnas, int tablero[MAX_FILAS][MAX_COLUMNAS],
                     int muroVertical[MAX_FILAS][MAX_COLUMNAS + 1],
                     int muroHorizontal[MAX_FILAS + 1][MAX_COLUMNAS],
+                    int turnoVertical[MAX_FILAS][MAX_COLUMNAS + 1],
+                    int turnoHorizontal[MAX_FILAS + 1][MAX_COLUMNAS],
+                    int duenoVertical[MAX_FILAS][MAX_COLUMNAS + 1],
+                    int duenoHorizontal[MAX_FILAS + 1][MAX_COLUMNAS],
                     int inicioX, int inicioY);
 void dibujarPacman(Posicion pacman, int inicioX, int inicioY);
 void dibujarPacBolas(PacBola pacbolas[], int inicioX, int inicioY);
