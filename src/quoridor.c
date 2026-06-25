@@ -116,12 +116,33 @@ void cargarMapaPredefinido(int mapa, int *filas, int *columnas, Posicion *pacman
 
     if(mapa == 1)
     {
-        tablero[2][2] = MURO_PERMANENTE;
-        tablero[2][3] = MURO_PERMANENTE;
-        tablero[2][4] = MURO_PERMANENTE;
-        tablero[6][4] = MURO_PERMANENTE;
-        tablero[6][5] = MURO_PERMANENTE;
-        tablero[6][6] = MURO_PERMANENTE;
+        /*
+           Muros permanentes del mapa 1.
+           No se guardan como casillas completas en tablero[].
+           Se guardan como barreras entre casillas.
+           turno = 0 significa muro fijo/permanente.
+        */
+        muroHorizontal[3][2] = 1;
+        muroHorizontal[3][3] = 1;
+        muroHorizontal[3][4] = 1;
+
+        muroHorizontal[6][4] = 1;
+        muroHorizontal[6][5] = 1;
+        muroHorizontal[6][6] = 1;
+
+        turnoHorizontal[3][2] = 0;
+        turnoHorizontal[3][3] = 0;
+        turnoHorizontal[3][4] = 0;
+        turnoHorizontal[6][4] = 0;
+        turnoHorizontal[6][5] = 0;
+        turnoHorizontal[6][6] = 0;
+
+        duenoHorizontal[3][2] = SIN_DUENO;
+        duenoHorizontal[3][3] = SIN_DUENO;
+        duenoHorizontal[3][4] = SIN_DUENO;
+        duenoHorizontal[6][4] = SIN_DUENO;
+        duenoHorizontal[6][5] = SIN_DUENO;
+        duenoHorizontal[6][6] = SIN_DUENO;
     }
 
     if(mapa == 2)
@@ -131,12 +152,30 @@ void cargarMapaPredefinido(int mapa, int *filas, int *columnas, Posicion *pacman
         pacman->fila = 5;
         pacman->columna = 5;
 
-        tablero[1][5] = MURO_PERMANENTE;
-        tablero[2][5] = MURO_PERMANENTE;
-        tablero[3][5] = MURO_PERMANENTE;
-        tablero[6][5] = MURO_PERMANENTE;
-        tablero[7][5] = MURO_PERMANENTE;
-        tablero[8][5] = MURO_PERMANENTE;
+        /*
+           Muros permanentes del mapa 2 como barreras verticales.
+           turno = 0 significa que no expiran.
+        */
+        muroVertical[1][5] = 1;
+        muroVertical[2][5] = 1;
+        muroVertical[3][5] = 1;
+        muroVertical[6][5] = 1;
+        muroVertical[7][5] = 1;
+        muroVertical[8][5] = 1;
+
+        turnoVertical[1][5] = 0;
+        turnoVertical[2][5] = 0;
+        turnoVertical[3][5] = 0;
+        turnoVertical[6][5] = 0;
+        turnoVertical[7][5] = 0;
+        turnoVertical[8][5] = 0;
+
+        duenoVertical[1][5] = SIN_DUENO;
+        duenoVertical[2][5] = SIN_DUENO;
+        duenoVertical[3][5] = SIN_DUENO;
+        duenoVertical[6][5] = SIN_DUENO;
+        duenoVertical[7][5] = SIN_DUENO;
+        duenoVertical[8][5] = SIN_DUENO;
 
         pacbolas[0].pos.fila = 1;
         pacbolas[0].pos.columna = 1;
@@ -155,14 +194,36 @@ void cargarMapaPredefinido(int mapa, int *filas, int *columnas, Posicion *pacman
         pacman->fila = 3;
         pacman->columna = 3;
 
-        tablero[2][1] = MURO_PERMANENTE;
-        tablero[2][2] = MURO_PERMANENTE;
-        tablero[2][5] = MURO_PERMANENTE;
-        tablero[2][6] = MURO_PERMANENTE;
-        tablero[5][1] = MURO_PERMANENTE;
-        tablero[5][2] = MURO_PERMANENTE;
-        tablero[5][5] = MURO_PERMANENTE;
-        tablero[5][6] = MURO_PERMANENTE;
+        /*
+           Muros permanentes del mapa 3 como barreras horizontales.
+           turno = 0 significa que no expiran.
+        */
+        muroHorizontal[2][1] = 1;
+        muroHorizontal[2][2] = 1;
+        muroHorizontal[2][5] = 1;
+        muroHorizontal[2][6] = 1;
+        muroHorizontal[5][1] = 1;
+        muroHorizontal[5][2] = 1;
+        muroHorizontal[5][5] = 1;
+        muroHorizontal[5][6] = 1;
+
+        turnoHorizontal[2][1] = 0;
+        turnoHorizontal[2][2] = 0;
+        turnoHorizontal[2][5] = 0;
+        turnoHorizontal[2][6] = 0;
+        turnoHorizontal[5][1] = 0;
+        turnoHorizontal[5][2] = 0;
+        turnoHorizontal[5][5] = 0;
+        turnoHorizontal[5][6] = 0;
+
+        duenoHorizontal[2][1] = SIN_DUENO;
+        duenoHorizontal[2][2] = SIN_DUENO;
+        duenoHorizontal[2][5] = SIN_DUENO;
+        duenoHorizontal[2][6] = SIN_DUENO;
+        duenoHorizontal[5][1] = SIN_DUENO;
+        duenoHorizontal[5][2] = SIN_DUENO;
+        duenoHorizontal[5][5] = SIN_DUENO;
+        duenoHorizontal[5][6] = SIN_DUENO;
 
         pacbolas[0].pos.fila = 0;
         pacbolas[0].pos.columna = 0;
@@ -1156,7 +1217,7 @@ void actualizarMurosTemporales(int filas, int columnas,
     {
         for(j = 1; j < columnas; j++)
         {
-            if(muroVertical[i][j] == 1)
+            if(muroVertical[i][j] == 1 && turnoVertical[i][j] > 0)
             {
                 turnoVertical[i][j]--;
 
@@ -1177,7 +1238,7 @@ void actualizarMurosTemporales(int filas, int columnas,
     {
         for(j = 0; j < columnas; j++)
         {
-            if(muroHorizontal[i][j] == 1)
+            if(muroHorizontal[i][j] == 1 && turnoHorizontal[i][j] > 0)
             {
                 turnoHorizontal[i][j]--;
 
@@ -1247,6 +1308,10 @@ void reiniciarPartida(int mapaSeleccionado, int *filas, int *columnas,
 void dibujarTablero(int filas, int columnas, int tablero[MAX_FILAS][MAX_COLUMNAS],
                     int muroVertical[MAX_FILAS][MAX_COLUMNAS + 1],
                     int muroHorizontal[MAX_FILAS + 1][MAX_COLUMNAS],
+                    int turnoVertical[MAX_FILAS][MAX_COLUMNAS + 1],
+                    int turnoHorizontal[MAX_FILAS + 1][MAX_COLUMNAS],
+                    int duenoVertical[MAX_FILAS][MAX_COLUMNAS + 1],
+                    int duenoHorizontal[MAX_FILAS + 1][MAX_COLUMNAS],
                     int inicioX, int inicioY)
 {
     int i;
@@ -1278,7 +1343,15 @@ void dibujarTablero(int filas, int columnas, int tablero[MAX_FILAS][MAX_COLUMNAS
             {
                 x = inicioX + j * TAM_CASILLA - 3;
                 y = inicioY + i * TAM_CASILLA;
-                DrawRectangle(x, y, 6, TAM_CASILLA, SKYBLUE);
+
+                if(turnoVertical[i][j] == 0 || duenoVertical[i][j] == SIN_DUENO)
+                {
+                    DrawRectangle(x, y, 6, TAM_CASILLA, DARKBLUE);
+                }
+                else
+                {
+                    DrawRectangle(x, y, 6, TAM_CASILLA, SKYBLUE);
+                }
             }
         }
     }
@@ -1291,7 +1364,15 @@ void dibujarTablero(int filas, int columnas, int tablero[MAX_FILAS][MAX_COLUMNAS
             {
                 x = inicioX + j * TAM_CASILLA;
                 y = inicioY + i * TAM_CASILLA - 3;
-                DrawRectangle(x, y, TAM_CASILLA, 6, SKYBLUE);
+
+                if(turnoHorizontal[i][j] == 0 || duenoHorizontal[i][j] == SIN_DUENO)
+                {
+                    DrawRectangle(x, y, TAM_CASILLA, 6, DARKBLUE);
+                }
+                else
+                {
+                    DrawRectangle(x, y, TAM_CASILLA, 6, SKYBLUE);
+                }
             }
         }
     }
