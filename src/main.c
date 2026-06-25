@@ -212,7 +212,7 @@ int main(void)
                                                   orientacionMuro, ladoMuro, &terminoTurno);
                         }
 
-                        verificarColisionConFantasmas(&pacman, fantasmas, &vidas,
+                        verificarColisionConFantasmas(&pacman, pacmanInicio, fantasmas, &vidas,
                                                       &fantasmasComidos, &puntaje,
                                                       &poderComerFantasma);
 
