@@ -268,7 +268,8 @@ int main(void)
             else
             {
                 dibujarTablero(filas, columnas, tablero, muroVertical,
-                               muroHorizontal, inicioX, inicioY);
+                               muroHorizontal, turnoVertical, turnoHorizontal,
+                               duenoVertical, duenoHorizontal, inicioX, inicioY);
                 dibujarPacBolas(pacbolas, inicioX, inicioY);
                 dibujarFantasmas(fantasmas, inicioX, inicioY);
                 dibujarPacman(pacman, inicioX, inicioY);
@@ -304,3 +305,4 @@ int main(void)
 
     return 0;
 }
+
